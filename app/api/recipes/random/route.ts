@@ -4,7 +4,16 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
   try {
     const { data } = await axios.get(
-      "https://www.themealdb.com/api/json/v1/1/random.php"
+      "https://www.themealdb.com/api/json/v1/1/random.php",
+      {
+        headers: {
+          "Cache-Control":
+            "no-store, no-cache, must-revalidate, proxy-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+          "Surrogate-Control": "no-store",
+        },
+      }
     );
     return NextResponse.json(
       {
