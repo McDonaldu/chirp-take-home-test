@@ -51,7 +51,13 @@ export const filterRecipe = async (query: string) => {
 
 export const getRecipe = async (id: string) => {
   try {
-    const { data } = await axios.get<RecipeData>(`/api/recipes/${id}`);
+    const { data } = await axios.get<RecipeData>(`/api/recipes/${id}`, {
+      headers: {
+        "Cache-Control": "no-cache",
+        Pragma: "no-cache",
+        Expires: "0",
+      },
+    });
     return data.data;
   } catch (error: any) {
     throw new Error(error.response.data.message ?? error.message);
