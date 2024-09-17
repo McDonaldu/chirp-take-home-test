@@ -32,7 +32,7 @@ type RecipeData = {
 export const getRandomRecipe = async () => {
   try {
     const { data } = await axios.get<RandomRecipeData>(
-      "http://localhost:3100/recipes/random"
+      `${process.env.NEXT_PUBLIC_API_URL}/recipes/random`
     );
     return data.data;
   } catch (error: any) {
@@ -43,7 +43,7 @@ export const getRandomRecipe = async () => {
 export const filterRecipe = async (query: string) => {
   try {
     const { data } = await axios.get<FilterRecipeData>(
-      "http://localhost:3100/recipes/search",
+      `${process.env.NEXT_PUBLIC_API_URL}/recipes/search`,
       {
         params: { query },
       }
@@ -57,7 +57,7 @@ export const filterRecipe = async (query: string) => {
 export const getRecipe = async (id: string) => {
   try {
     const { data } = await axios.get<RecipeData>(
-      `http://localhost:3100/recipes/${id}`
+      `${process.env.NEXT_PUBLIC_API_URL}/recipes/${id}`
     );
     return data.data;
   } catch (error: any) {
