@@ -1,16 +1,18 @@
 import axios from "axios";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
     const { data } = await axios.get(
       "https://www.themealdb.com/api/json/v1/1/random.php"
     );
-    console.log("data", data);
-    return NextResponse.json({
-      success: true,
-      data: data.meals[0],
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        data: data.meals[0],
+      },
+      { headers: { "Cache-Control": "no-store" } }
+    );
   } catch (error) {
     console.log(error);
     if (error instanceof Error) {
